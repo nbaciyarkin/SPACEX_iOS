@@ -3,15 +3,14 @@
 //  MobilliumProject
 //
 //  Created by Yarkın Gazibaba on 16.05.2022.
-
+//
 
 import Foundation
 import Kingfisher
-
 import UIKit
 
-protocol LaunchesTableViewTableViewCellDelegate: AnyObject {
-    func tabelViewTableViewCellcheckTap(_cell cell : LaunchesTableViewCell, cellForRowAt indexPath: IndexPath ,viewModel model: [LaunchesModel])
+protocol LaunchesTableViewCellDelegate: AnyObject {
+    func tabelViewTableViewCellcheckTap(_cell cell : LaunchesTableViewCell,viewModel model: LaunchesModel, isFilled: Bool)
 }
 
 class LaunchesTableViewCell: UITableViewCell {
@@ -19,6 +18,11 @@ class LaunchesTableViewCell: UITableViewCell {
     var isFilled = false
 
     static let identifier = "LaunchesTableViewCell"
+    
+    var cellCheckDelegate: LaunchesTableViewCellDelegate!
+    
+    lazy  var imageFilled = UIImage(systemName: "suit.heart.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
+    lazy var  imageEmpty = UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
     
     private let likedButton: UIButton = {
         let button = UIButton()
@@ -33,7 +37,7 @@ class LaunchesTableViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     
@@ -42,7 +46,7 @@ class LaunchesTableViewCell: UITableViewCell {
         label.text = "date local"
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     
@@ -65,16 +69,14 @@ class LaunchesTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .darkGray
-        
         contentView.addSubview(titleLabel)
         contentView.addSubview(titleImageView)
         contentView.addSubview(likedButton)
         contentView.addSubview(dateLocalLabel)
-
         applyConstraints()
     }
-
+    
+    
     func applyConstraints(){
         let titlesImageViewConstraints = [
             titleImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
@@ -106,35 +108,23 @@ class LaunchesTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(dateLocalLabelConstraint)
     }
     
-    
-    
-    func save(indexPath: LaunchesModel){
-        
-        DatapersistenceManager.shared.saveRocket(model: indexPath) { result in
-                switch result {
-                case .success():
-                    print("downloaded")
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
-    }
-    
-    
-
     @objc private func btn_TUI(){
         self.isFilled = !isFilled
-        let imageFilled = UIImage(systemName: "suit.heart.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
-        let imageEmpty = UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
-        
         if(isFilled == true) {
-            likedButton.setImage(imageFilled, for: .normal)
+            setButtonFilled()
         }
         else {
-            likedButton.setImage(imageEmpty, for: .normal)
+            setButtonUnFilled()
         }
     }
     
+    public func setButtonFilled(){
+        likedButton.setImage(imageFilled, for: .normal)
+    }
+    
+    public func setButtonUnFilled() {
+        likedButton.setImage(imageEmpty, for: .normal)
+    }
     
     public func configure(with model: LaunchesViewModel){
         titleImageView.kf.setImage(with: URL(string: model.image_link))
@@ -145,6 +135,4 @@ class LaunchesTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-
 }

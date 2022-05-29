@@ -9,9 +9,8 @@ import Foundation
 
 
 struct Constants {
-    static let API_KEY = "<<TMDB api-key>>"
-    static let baseUrl = "https://api.spacexdata.com/v4"
-    static let youtubeApıKey = "AIzaSyBT1pWm2eyLQNSTVaVWD51h3pIfHW8GJCQ"
+    static let baseUrl = "https://api.spacexdata.com/v5"
+    static let youtubeApıKey = "AIzaSyCvP-iEY4jVohMdbFShHkGMYEdJRAr745s"
     static let youtubeBaseUrl = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
@@ -52,7 +51,6 @@ class ApıCaller {
     
     func getLaunch(with query: String,completion: @escaping (Result<VideoElement, Error>) -> Void) {
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
-        
         guard let url = URL(string: "\(Constants.youtubeBaseUrl)q=\(query)&key=\(Constants.youtubeApıKey)") else {return}
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
@@ -70,8 +68,6 @@ class ApıCaller {
         }
         task.resume()
     }
-    
-    
     
 }
     

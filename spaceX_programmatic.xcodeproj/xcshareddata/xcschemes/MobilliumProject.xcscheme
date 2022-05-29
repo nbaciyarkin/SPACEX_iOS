@@ -17,7 +17,7 @@
                BlueprintIdentifier = "4EC8D9EC282C35E700F34A3E"
                BuildableName = "MobilliumProject.app"
                BlueprintName = "MobilliumProject"
-               ReferencedContainer = "container:MobilliumProject.xcodeproj">
+               ReferencedContainer = "container:spaceX_programmatic.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "4EC8D9EC282C35E700F34A3E"
             BuildableName = "MobilliumProject.app"
             BlueprintName = "MobilliumProject"
-            ReferencedContainer = "container:MobilliumProject.xcodeproj">
+            ReferencedContainer = "container:spaceX_programmatic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "4EC8D9EC282C35E700F34A3E"
             BuildableName = "MobilliumProject.app"
             BlueprintName = "MobilliumProject"
-            ReferencedContainer = "container:MobilliumProject.xcodeproj">
+            ReferencedContainer = "container:spaceX_programmatic.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 struct LaunchesViewModel {
     let launchName:String
     let image_link: String

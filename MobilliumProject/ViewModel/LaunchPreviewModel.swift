@@ -6,10 +6,9 @@
 //
 
 import Foundation
-
-
 struct LaunchPreviewViewModel {
     let title: String
     let youtubeView: VideoElement
     let launchDetail: String
+    let articleLink: String
 }
